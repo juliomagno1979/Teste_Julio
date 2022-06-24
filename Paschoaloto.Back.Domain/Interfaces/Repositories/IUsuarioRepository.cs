@@ -7,8 +7,6 @@ namespace Paschoalotto.Back.Domain.Interfaces.Repository
 {
     public interface IUsuarioRepository : IBaseRepository<Usuario>
     {
-        Usuario Salvar(Usuario obj);
 
-        IEnumerable<Usuario> Listar();
     }
 }

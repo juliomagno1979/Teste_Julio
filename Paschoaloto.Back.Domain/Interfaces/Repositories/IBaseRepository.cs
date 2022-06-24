@@ -9,6 +9,6 @@ namespace Paschoalotto.Back.Domain.Interfaces.Repository
     {
         TEntity Salvar(TEntity obj);
 
-        IQueryable<TEntity> Listar();
+        List<TEntity> Listar();
     }
 }

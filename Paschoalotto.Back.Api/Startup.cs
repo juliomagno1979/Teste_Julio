@@ -1,16 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using Paschoalotto.Back.Data.Repositories;
-using System;
-using System.Collections.Generic;
+using Paschoalotto.Back.Domain.Interfaces.Repository;
+using Paschoalotto.Back.Domain.Interfaces.Services;
+using Paschoalotto.Back.Services;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Paschoalotto.Back.Api
 {
@@ -30,26 +29,40 @@ namespace Paschoalotto.Back.Api
             services.AddControllers();
             var connectionString = Configuration.GetConnectionString("SQLConnection");
 
-            //adicionar contexto
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Paschoalotto.Back.API", Version = "v1" });
+                c.ResolveConflictingActions(x => x.First());
+            });
 
-            //services.AddDbContext<PaschoalottoContext>(
-            //       options => options.UseSqlServer(connectionString)
-            //   );
+            services.AddDbContext<PaschoalottoContext>(opt => opt.UseInMemoryDatabase("dbPaschoalotto"));
+            services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Backoffice Paschoalotto");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseEndpoints(endpoints =>
             {

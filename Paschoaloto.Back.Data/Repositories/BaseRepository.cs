@@ -9,17 +9,32 @@ namespace Paschoalotto.Back.Data.Repositories
 {
     public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
-        PaschoalottoContext _Context;
-        public TEntity Salvar(TEntity entidade)
+        public BaseRepository()
         {
-            _Context.Add(entidade);
-            _Context.SaveChanges();
-            return entidade;
         }
 
-        public IQueryable<TEntity> Listar()
+        public TEntity Salvar(TEntity entidade)
         {
-            return _Context.Set<TEntity>().AsNoTracking().AsQueryable();
+            var optionsBuilder = new DbContextOptionsBuilder<PaschoalottoContext>();
+            optionsBuilder.UseInMemoryDatabase("dbPaschoalotto");
+
+            using (var context = new PaschoalottoContext(optionsBuilder.Options))
+            {
+                context.Add(entidade);
+                context.SaveChanges();
+                return entidade;
+            }
+        }
+
+        public List<TEntity> Listar()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<PaschoalottoContext>();
+            optionsBuilder.UseInMemoryDatabase("dbPaschoalotto");
+
+            using (var context = new PaschoalottoContext(optionsBuilder.Options))
+            {
+                return context.Set<TEntity>().AsNoTracking().AsQueryable().ToList();
+            }
         }
 
     }

@@ -6,18 +6,8 @@ using System.Text;
 
 namespace Paschoalotto.Back.Data.Repositories
 {
-    public class UsuarioRepository : BaseRepository<Usuario>
+    public class UsuarioRepository : BaseRepository<Usuario>, IUsuarioRepository
     {
-        public Usuario Salvar(Usuario usuario)
-        {
 
-            return usuario;
-        }
-
-        public IEnumerable<Usuario> Listar()
-        {
-
-            return null;
-        }
     }
 }

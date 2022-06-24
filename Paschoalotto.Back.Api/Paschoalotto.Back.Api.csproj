@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Paschoaloto.Back.Data\Paschoalotto.Back.Data.csproj" />
+    <ProjectReference Include="..\Paschoalotto.Back.Services\Paschoalotto.Back.Services.csproj" />
   </ItemGroup>
 
 

@@ -3,6 +3,7 @@ using Paschoalotto.Back.Domain.Interfaces.Repository;
 using Paschoalotto.Back.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Paschoalotto.Back.Services
@@ -17,13 +18,12 @@ namespace Paschoalotto.Back.Services
 
         public Usuario Salvar(Usuario usuario)
         {
-
-            return usuario;
+            return base.Salvar(usuario);
         }
 
-        public IEnumerable<Usuario> Listar()
+        public List<Usuario> Listar()
         {
-            return null;
+            return base.Listar().ToList();
         }
     }
 }

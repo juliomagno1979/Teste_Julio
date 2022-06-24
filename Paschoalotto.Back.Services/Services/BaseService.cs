@@ -2,6 +2,7 @@
 using Paschoalotto.Back.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Paschoalotto.Back.Services
@@ -21,7 +22,7 @@ namespace Paschoalotto.Back.Services
             return Repository.Salvar(entity);
         }
 
-        public IEnumerable<TEntity> Listar()
+        public List<TEntity> Listar()
         {
             return Repository.Listar();
         }

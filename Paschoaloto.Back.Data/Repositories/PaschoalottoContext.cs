@@ -7,7 +7,7 @@ namespace Paschoalotto.Back.Data.Repositories
 
     public class PaschoalottoContext : DbContext
     {
-        public PaschoalottoContext(DbContextOptions options): base(options)
+        public PaschoalottoContext(DbContextOptions options) : base(options)
         {
         }
 
@@ -19,6 +19,7 @@ namespace Paschoalotto.Back.Data.Repositories
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //use this to configure the model
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
